@@ -6,20 +6,17 @@
 class Solution {
 public:
     string longestCommonPrefix(vector<string>& strs) {
-        string res = "";
-        if(strs.size()==0)return res;
+        if(strs.size()==0)return "";
 
-        //用了GOTO
         for(int i=0;i<strs[0].size();i++){
             char cur = strs[0][i];
-            for(int j=0;j<strs.size();j++){
-                if(i >= strs[j].size() || strs[j][i]!=cur){
-                    goto RET;
+            for(int j=1;j<strs.size();j++){
+                if(i == strs[j].size() || strs[j][i]!=cur){
+                    return strs[0].substr(0,i);
                 }
             }
-            res += cur;
         }
-RET:    return res;
+        return strs[0];
     }
 };
 
