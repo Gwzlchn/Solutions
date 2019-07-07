@@ -22,3 +22,24 @@
 
 // 输出例子:
 // 41
+
+#include<iostream>
+using namespace std;
+
+int main(){
+    int pre=0,cnt=0,sec=0;
+    cin>>cnt;
+    while(cnt--){
+        int now;
+        cin>>now;
+        if(now>pre){
+            sec += (now - pre)* 6 + 5;
+            
+        }else{
+            sec += (pre-now)*4 + 5;
+        }
+        pre = now;
+    }
+    cout<<sec;
+    return 0;
+}
