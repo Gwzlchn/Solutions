@@ -21,4 +21,45 @@
 // 输出例子:
 // 3 3 3.6 2 6.0 1 1.6
 
+#include<cstdio>
+#include<vector>
 
+using namespace std;
+
+int main(){
+    int a_size;
+    scanf("%d ",&a_size);
+
+    double a_arr[1001] = {0.0},res_arr[2005] = {0.0};
+    for(int i=0;i<a_size;i++){
+        int a;double b;
+        scanf("%d %lf",&a,&b);
+        a_arr[a] = b;
+    }
+    int b_size;
+    scanf("%d ",&b_size);
+    for(int i=0;i<b_size;i++){
+        int a;double b;
+        scanf("%d %lf",&a,&b);
+        
+        for(int j =0;j<1001;j++){
+            res_arr[j+a] += a_arr[j] * b;
+        }
+
+    }
+    int cnt = 0;
+    for(int i=0;i<=2000;i++){
+        if(res_arr[i]!=0){
+            cnt++;
+        }
+    }
+    printf("%d ",cnt);
+
+    for(int i=2000;i>=0;i--){
+        if(res_arr[i]!=0){
+            printf("%d %.1f ",i,res_arr[i]);
+        }
+    }
+    return 0;
+
+}
