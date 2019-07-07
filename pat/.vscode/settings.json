@@ -4,6 +4,8 @@
         "xutility": "cpp",
         "iostream": "cpp",
         "vector": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "xtree": "cpp",
+        "iosfwd": "cpp"
     }
 }
