@@ -56,7 +56,7 @@ bool isRePrime(int a,int b){
         res = res*b +  a%b;
         a /= b;
     }
-    //printf("%d",res);
+    printf("%d",res);
 
     return isPrime(res) && flag1;
 }

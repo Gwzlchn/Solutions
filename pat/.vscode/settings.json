@@ -6,6 +6,7 @@
         "vector": "cpp",
         "algorithm": "cpp",
         "xtree": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "ostream": "cpp"
     }
 }
