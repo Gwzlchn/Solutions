@@ -64,108 +64,85 @@ using namespace std;
 
 struct stu
 {
-   int id;
-   int  score[4];
-   int  rank[4];
+	int id;
+	int  score[4];
+	int  rank[4];
 
-   int best_rank =5 ,best_sub=0;
+	int best_rank = 5, best_sub = 0;
 };
 
-int cmp_c(stu s1,stu s2){
-    return s1.score[0] > s2.score[0];
+void set_rank(vector<stu>& stu_arr, int index) {
+
+	if (stu_arr.size() == 0)
+		return;
+
+	stu_arr[0].rank[index] = 1;
+	for (int i = 1; i < stu_arr.size(); i++) {
+		if (stu_arr[i].rank[index] == stu_arr[i - 1].rank[index]) {
+			stu_arr[i].rank[index] = stu_arr[i - 1].rank[index];
+		}
+		else {
+			stu_arr[i].rank[index] = i + 1;
+		}
+	}
 }
 
-int cmp_m(stu s1,stu s2){
-    return s1.score[1] > s2.score[1];
+void set_best(vector<stu>& stu_arr) {
+	for (auto iter = stu_arr.begin(); iter != stu_arr.end(); iter++) {
+		int min_rank = iter->best_rank;
+
+		for (int i = 0; i < 4; i++) {
+			if (iter->rank[i] < min_rank) {
+				min_rank = iter->best_rank = iter->rank[i];
+				iter->best_sub = i;
+			}
+		}
+		if (min_rank == iter->rank[3]) {
+			iter->best_sub = 3;
+		}
+	}
+
 }
 
+int main() {
+	int cnt, q_cnt;
+	scanf("%d %d", &cnt, &q_cnt);
 
-int cmp_e(stu s1,stu s2){
-    return s1.score[2] > s2.score[2];
-}
+	vector<stu> stu_arr(cnt);
+	for (int i = 0; i < cnt; i++) {
 
-int cmp_a(stu s1,stu s2){
-    return s1.score[3] > s2.score[3];
-}
+		scanf("%d %d %d %d",
+			&stu_arr[i].id, &stu_arr[i].score[0], &stu_arr[i].score[1], &stu_arr[i].score[2]);
+		stu_arr[i].score[3] = (stu_arr[i].score[0] + stu_arr[i].score[1] + stu_arr[i].score[2]) / 3;
 
-void set_rank(vector<stu>& stu_arr,int index){
-    
-    if(stu_arr.size()==0)
-        return;
+	}
 
-    stu_arr[0].rank[index] =1;
-    for(int i=1;i<stu_arr.size();i++){
-        if(stu_arr[i].rank[index] == stu_arr[i-1].rank[index] ){
-            stu_arr[i].rank[index] = stu_arr[i-1].rank[index];
-        }else{
-            stu_arr[i].rank[index] = i+1;
-        }
-    }
-}
+	for (int i = 0; i < 4; i++) {
+		sort(stu_arr.begin(), stu_arr.end(), [i](stu s1, stu s2) {
+			return  s1.score[i] > s2.score[i];
+			});
+		set_rank(stu_arr, i);
+	}
 
-void set_best(vector<stu>& stu_arr){
-    for(auto iter = stu_arr.begin();iter!=stu_arr.end();iter++){
-        int min_rank = iter->best_rank;
+	set_best(stu_arr);
+	char rank_char[4] = { 'C','M','E','A' };
 
-        for(int i=0;i<4;i++){
-            if(iter->rank[i] < min_rank){
-                min_rank = iter->best_rank = iter->rank[i];
-                iter->best_sub = i;
-            }
-        }
-        if(min_rank == iter->rank[1]){
-            iter->best_sub = 3;
-        }
-    }
-    
-}
+	for (int i = 0; i < q_cnt; i++) {
+		int in_id = 0;
+		scanf("%d", &in_id);
 
-int main(){
-    int cnt,q_cnt;
-    scanf("%d %d",&cnt,&q_cnt);
+		auto res = find_if(stu_arr.begin(), stu_arr.end(), [&in_id](stu s1) {
+			return s1.id == in_id;
+			});
+		if (res == stu_arr.end()) {
+			printf("N/A");
+		}
+		else {
+			printf("%d %c\n", res->best_rank, rank_char[res->best_sub]);
+		}
+	}
 
-    vector<stu> stu_arr(cnt);
-    for(int i=0;i<cnt;i++){
-       
-        scanf("%d %d %d %d",
-            &stu_arr[i].id,&stu_arr[i].score[0],&stu_arr[i].score[1],&stu_arr[i].score[2]);
-        stu_arr[i].score[3] = (stu_arr[i].score[0] + stu_arr[i].score[1] + stu_arr[i].score[2]) /3;
-
-    }
-
-    sort(stu_arr.begin(),stu_arr.end(),cmp_c);
-    set_rank(stu_arr,0);
-   
-
-    sort(stu_arr.begin(),stu_arr.end(),cmp_m);
-    set_rank(stu_arr,1);
-       
-
-    sort(stu_arr.begin(),stu_arr.end(),cmp_e);
-    set_rank(stu_arr,2);
-  
-
-    sort(stu_arr.begin(),stu_arr.end(),cmp_a);
-    set_rank(stu_arr,3);
-  
-    set_best(stu_arr);
-    char rank_char[4] = {'C','M','E','A'};
-
-    for(int i=0;i<q_cnt;i++){
-        int in_id=0;
-        scanf("%d",&in_id);
-
-         auto res = find_if(stu_arr.begin(),stu_arr.end(),[&in_id](stu s1){
-            return s1.id == in_id;
-         });
-         if(res==stu_arr.end()){
-             printf("N/A");
-         }else{
-             printf("%d %c\n",res->best_rank,rank_char[res->best_sub]);
-         }
-    }
-
-    return 0;
+	return 0;
 
 }
 
