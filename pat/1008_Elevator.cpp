@@ -11,7 +11,7 @@
 
 // 输入描述:
 // Each input file contains one test case. Each case contains a positive integer
-//  N, followed by N positive numbers. All the numbers in the input are less than 100.
+// N, followed by N positive numbers. All the numbers in the input are less than 100.
 
 
 // 输出描述:
