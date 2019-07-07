@@ -24,3 +24,47 @@
 
 // Sample Output:
 // SC3021234 CS301133
+
+#include<string>
+#include<vector>
+#include<algorithm>
+#include<iostream>
+
+using namespace std;
+
+struct stu{
+    string id;
+    long sign_in;
+    long sign_out;
+};
+
+int cmp_in(stu s1,stu s2){
+    return s1.sign_in < s2.sign_in;
+}
+
+int cmp_out(stu s1,stu s2){
+    return s1.sign_out < s2.sign_out;
+}
+
+int main(){
+    int cnt;
+    cin>>cnt;
+    vector<stu> stu_vec(cnt);
+
+
+    for(int i=0;i<cnt;i++){
+        cin>>stu_vec[i].id;
+        int in_h,in_m,in_s,out_h,out_m,out_s;
+        scanf("%d:%d:%d %d:%d:%d",&in_h,&in_m,&in_s,&out_h,&out_m,&out_s);
+
+        stu_vec[i].sign_in = in_h * 3600 + in_m * 60 + in_s;
+        stu_vec[i].sign_out = out_h * 3600 + out_m * 60 + out_s;
+    }
+
+    sort(stu_vec.begin(),stu_vec.end(),cmp_in);
+    cout<<stu_vec[0].id<<" ";
+
+    sort(stu_vec.begin(),stu_vec.end(),cmp_out);
+    cout<<stu_vec.rbegin()->id;
+}
+
