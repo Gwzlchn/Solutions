@@ -28,3 +28,85 @@
 // 2
 // Team000002 RLsp%dfa
 // Team000001 R@spodfa
+
+
+#include<string>
+#include<vector>
+#include<iostream>
+#include <algorithm>
+using namespace std;
+struct stu{
+    string id;
+    string pass;
+    string pass_altered = "";
+    bool alterd = false;
+};
+
+int altered(stu s1){
+    return s1.alterd;
+}
+
+
+bool change_pass(stu& temp){
+    int length = temp.pass.size();
+    for(int i=0;i<length;i++){
+        switch (temp.pass[i])
+        {
+        case '1':
+            temp.pass[i] = '@';
+            temp.alterd = true;
+            break;
+        case 'l':
+             temp.pass[i] = 'L';
+            temp.alterd = true;
+            break;
+         case '0':
+             temp.pass[i] = '%';
+            temp.alterd = true;
+            break;
+        case 'O':
+             temp.pass[i] = 'o';
+            temp.alterd = true;
+            break;
+        default:
+            break;
+        }
+    }
+    return temp.alterd;
+}
+
+
+int main(){
+    int cnt,temp_cnt;
+    cin>>cnt;
+    temp_cnt = cnt;
+    vector<stu> stu_arr;
+    while(temp_cnt--){
+        stu* temp = new stu;
+        cin>>temp->id;
+        cin>>temp->pass;
+        change_pass(*temp);
+        stu_arr.push_back(*temp);
+    }
+    int alt_cnt;
+    alt_cnt = count_if(stu_arr.begin(),stu_arr.end(),altered);
+    if(alt_cnt == 0){
+        if(cnt==1){
+            cout<<"There is 1 account and no account is modified"<<endl;
+        }else{
+            cout<<"There are "<<cnt<<" accounts and no account is modified"<<endl;
+        }
+        return 0;
+    }
+    cout<<alt_cnt<<endl;
+    for(int i=0;i<stu_arr.size();i++){
+        if(stu_arr[i].alterd){
+            cout<<stu_arr[i].id<<" "<<stu_arr[i].pass<<endl;
+        }
+    }
+
+    return 0;
+
+
+}
+
