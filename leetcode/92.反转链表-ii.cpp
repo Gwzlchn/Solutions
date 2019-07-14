@@ -49,8 +49,9 @@ public:
         	pre = pre->next;
         	i++;
         }
+        
         ListNode* start = pre->next;
-         ListNode*  then = start->next;
+        ListNode*  then = start->next;
 
         int cnt = n-m;
         while(cnt--){
