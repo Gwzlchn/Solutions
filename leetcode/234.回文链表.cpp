@@ -41,7 +41,37 @@
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
+
+        if(!head) return true;
+        ListNode* fast = head,*slow = head;
+        //  slow指针指向中间点
+        while(fast && fast->next){
+            fast = fast->next->next;
+            slow = slow->next;
+        }
+
+        //倒置后半段
+        ListNode* midhead = new ListNode(-1);
+        midhead->next = NULL;
+
+        ListNode  *cur = slow,*next = NULL;
+        while(cur){
+            next = cur->next;
+            cur->next = midhead->next;
+            midhead->next = cur;
+            cur = next;
+        }
+        midhead = midhead->next;
         
+        while(midhead){
+            if(head->val != midhead->val){  
+                return false;
+            }
+            head = head->next;
+            midhead = midhead->next;
+        }
+        return true;
+
     }
 };
 
