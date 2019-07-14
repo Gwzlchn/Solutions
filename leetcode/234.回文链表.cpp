@@ -44,10 +44,11 @@ public:
 
         if(!head) return true;
         ListNode* fast = head,*slow = head;
-        //  slow指针指向中间点
+        //  slow指针指向中间点偏下
         while(fast && fast->next){
             fast = fast->next->next;
             slow = slow->next;
+            cout<<slow->val<<" ";
         }
 
         //倒置后半段
@@ -63,6 +64,7 @@ public:
         }
         midhead = midhead->next;
         
+        //比较
         while(midhead){
             if(head->val != midhead->val){  
                 return false;
