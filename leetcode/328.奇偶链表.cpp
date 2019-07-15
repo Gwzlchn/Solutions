@@ -44,10 +44,22 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+ //思路：两个头指针，一个奇数头，一个偶数头
 class Solution {
 public:
     ListNode* oddEvenList(ListNode* head) {
-        
+        if(!head) return NULL;
+        ListNode *even = head->next,*even_head = even; //偶数头
+        ListNode *odd = head;   //奇数头
+       
+        while(even && even->next){
+            odd->next = even->next;
+            odd = odd->next;
+            even->next = odd->next;
+            even = even->next;
+        }
+        odd->next = even_head;
+        return head;
     }
 };
 
