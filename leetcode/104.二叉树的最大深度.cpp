@@ -40,10 +40,33 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+
+ //也是类似层次遍历
 class Solution {
 public:
     int maxDepth(TreeNode* root) {
+        int depth = 0;
+        if(!root) return depth;
+        queue<TreeNode*> qu;
+        qu.push(root);
         
+        int cur_wid = 1;
+        while(!qu.empty()){
+            depth++;
+            while(cur_wid--){
+                TreeNode* cur = qu.front();
+                qu.pop();
+                if(cur->left){
+                    qu.push(cur->left);
+                }
+                if(cur->right){
+                    qu.push(cur->right);
+                }
+            }
+            cur_wid = qu.size();
+        }
+        return depth;
     }
 };
+
 
