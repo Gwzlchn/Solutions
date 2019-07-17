@@ -52,6 +52,9 @@
  * 进阶:
  * 如果多次调用这个函数，你将如何优化你的算法？
  * 
+
+  √ Your runtime beats 67.05 % of cpp submissions
+  √ Your memory usage beats 16.16 % of cpp submissions (8.2 MB)
  */
 class Solution {
 public:
