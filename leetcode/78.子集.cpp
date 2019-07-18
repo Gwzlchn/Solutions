@@ -33,19 +33,21 @@
  * ]
  * 
  */
-
- //位运算：顺序无关紧要
+ //位运算，顺序无关紧要
+// √ Accepted
+//   √ 10/10 cases passed (8 ms)
+//   √ Your runtime beats 93.12 % of cpp submissions
+//   √ Your memory usage beats 89.22 % of cpp submissions (8.9 MB)
 class Solution {
 public:
     vector<vector<int>> subsets(vector<int>& nums) {
         int set_size = nums.size(),ret_size = 1<<set_size;
         if(set_size==0)return {};
         vector<vector<int>> ret;
-        
         for(int i=0;i<ret_size;i++){
             vector<int> cur = {};
             for(int j=0;j<set_size;j++){
-                if((1<<j)&i) cur.push_back(nums[j]);
+                if((i>>j)&1) cur.push_back(nums[j]);
             }
             ret.push_back(cur);
         }
