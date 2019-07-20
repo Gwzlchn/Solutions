@@ -52,19 +52,34 @@
  * 进阶:
  * 如果多次调用这个函数，你将如何优化你的算法？
  * 
+*/
 
-  √ Your runtime beats 67.05 % of cpp submissions
-  √ Your memory usage beats 16.16 % of cpp submissions (8.2 MB)
- */
+//   √ Your runtime beats 67.05 % of cpp submissions
+//   √ Your memory usage beats 16.16 % of cpp submissions (8.2 MB)
+//  */   
+//找当前最低的1
 class Solution {
 public:
     int hammingWeight(uint32_t n) {
-        int ret = 0;
-        while(n){
-            if(n&0x0001)ret++;
-            n>>=1;
+        int sum = 0;
+        while (n != 0) {
+            sum++;
+            n &= (n - 1);
         }
-        return ret;
+        return sum;
+
     }
 };
 
+
+        
+  /*      
+          √ Your runtime beats 67.05 % of cpp submissions
+  √ Your memory usage beats 16.16 % of cpp submissions (8.2 MB)
+ */
+        // int ret = 0;
+        // while(n){
+        //     if(n&0x0001)ret++;
+        //     n>>=1;
+        // }
+        // return ret;
