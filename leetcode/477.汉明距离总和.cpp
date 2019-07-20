@@ -38,10 +38,24 @@
  * 
  * 
  */
+ //纵向求hanming距离
 class Solution {
 public:
     int totalHammingDistance(vector<int>& nums) {
-
+        int ret = 0;
+        int count_1[32] = {0};
+        for(int i=0;i<nums.size();i++){
+            int j = 0;
+            while(nums[i]){
+                if(nums[i]&1)count_1[j]++;
+                j++;
+                nums[i] >>= 1;
+            }
+        }
+        for(int i=0;i<32;i++){
+            ret += (nums.size()-count_1[i])*count_1[i];
+        }
+        return ret;
     }
 };
 
