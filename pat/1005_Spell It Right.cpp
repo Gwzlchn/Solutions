@@ -14,7 +14,7 @@
 
 // 输出例子:
 // one five
-
+//最后一个输出没空格
 #include<iostream>
 using namespace std;
 
@@ -25,20 +25,23 @@ string nums[10] = {
 int main(){
     string  in;
     cin>>in;
-    int sum;
-    for(int i=0;i<in.size();i++){
-        sum += in[i] - '0';
+    long long  sum = 0;
+    for(size_t i=0;i<in.size();i++){
+        sum += (in[i] - '0');
     }
+    cout<<sum<<endl;
     //cout<<sum;
-    int nums_arr[10];
+    long long  nums_arr[10] = {0};
     int i=0;
     while(sum){
         nums_arr[i] = sum %10;
         sum /=10;
         i++;
     }
-    while(i--){
-        cout<<nums[nums_arr[i]]<<" ";
+    for(int j=i-1;j>0;j--){
+        cout<<nums[nums_arr[j]]<<" ";
     }
+    cout<<nums[nums_arr[0]];
+    return 0;
     
 }
