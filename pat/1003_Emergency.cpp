@@ -42,7 +42,7 @@ using namespace std;
 
 int main() {
 
-	const int inf = 99999999;
+	const long inf = 999999;
 	const int max_city = 505;
 	int graph[max_city][max_city] = { 0 };
 	int rescue_i[max_city] = { 0 };

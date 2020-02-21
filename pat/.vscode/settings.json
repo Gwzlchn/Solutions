@@ -8,7 +8,9 @@
         "xtree": "cpp",
         "iosfwd": "cpp",
         "ostream": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "string": "cpp",
+        "cstdio": "cpp"
     },
     
 }
