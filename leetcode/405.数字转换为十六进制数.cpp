@@ -49,7 +49,19 @@
 class Solution {
 public:
     string toHex(int num) {
-        
+        if(num == 0)return "0";
+
+        string res = "";
+        char hex[17] = "0123456789abcdef";
+        while(num && res.size()<8){
+            res = hex[num & 0xf] + res;  
+            num >>= 4;
+
+        }
+        return res;
     }
 };
+// 100/100 cases passed (4 ms)
+// Your runtime beats 66.53 % of cpp submissions
+// Your memory usage beats 39.18 % of cpp submissions (8.2 MB)
 
