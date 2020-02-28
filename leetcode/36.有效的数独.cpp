@@ -75,7 +75,30 @@
 class Solution {
 public:
     bool isValidSudoku(vector<vector<char>>& board) {
-        
-    }
+        set<char> row[9];
+        set<char> col[9];
+        set<char> box[9];
+
+        for(int i=0;i<9;i++){
+            for(int j = 0;j<9;j++){
+                char cur = board[i][j];
+                if(cur == '.') continue;
+                int box_idx = (i/3)*3 + j/3;
+
+                if(row[i].insert(cur).second &&
+                    col[j].insert(cur).second &&
+                    box[box_idx].insert(cur).second ){
+                    continue;
+                }   else{
+                    //cout<<i<<j<<box_idx;
+                    return false;
+                }             
+            }
+        }
+        return true;
+   }
 };
 
+// 504/504 cases passed (20 ms)
+// Your runtime beats 45.61 % of cpp submissions
+// Your memory usage beats 29.01 % of cpp submissions (11 MB)
