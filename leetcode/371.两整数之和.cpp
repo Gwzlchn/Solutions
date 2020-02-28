@@ -29,19 +29,19 @@
  */
 
 // @lc code=start
-class Solution
-{
+class Solution {
 public:
-    int getSum(int a, int b)
-    {
-        int sum, c;
-        sum = a ^ b;
-        c = ((unsigned int)(a & b)) << 1;
-        if (c != 0)
-        {
-            return getSum(sum, c);
+    int getSum(int a, int b) {
+        //a & b 是产生进位的位，<<1 是应该进到位
+
+        while(b != 0){
+            int sum   = a ^ b;
+            int carry = ((unsigned int)(a & b) << 1);
+            a = sum;
+            b = carry;
         }
-        return sum;
+        return a; 
     }
 };
+
 // @lc code=end
