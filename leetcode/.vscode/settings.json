@@ -4,7 +4,12 @@
         "string": "cpp",
         "xstring": "cpp",
         "ostream": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "memory": "cpp",
+        "optional": "cpp",
+        "string_view": "cpp",
+        "system_error": "cpp",
+        "deque": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
