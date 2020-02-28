@@ -53,8 +53,43 @@
 class Solution {
 public:
     int dominantIndex(vector<int>& nums) {
+        int max;
+        int sec;
+        int idx;
+        
+        if(nums.size()==1)
+            return 0;
+        
+        if(nums[0]>nums[1]){
+            max = nums[0];
+            sec = nums[1];
+            idx = 0;
+        }else {
+            max = nums[1];
+            sec = nums[0];
+            idx = 1;
+        }
 
+        for(int i = 2;
+            i<nums.size();
+            i++){
+            if(nums[i] > max){
+                sec = max;
+                max = nums[i];
+                idx = i;
+            }
+            else if(nums[i] > sec){
+                sec = nums[i];
+            }
+        }
+
+        return (max/2 >= sec)? idx:-1;
+        
     }
 };
 // @lc code=end
+
+// 250/250 cases passed (0 ms)
+// Your runtime beats 100 % of cpp submissions
+// Your memory usage beats 5.34 % of cpp submissions (13.5 MB)
 
