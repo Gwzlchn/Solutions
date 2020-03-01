@@ -85,8 +85,20 @@
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        
+        if(headA == NULL || headB == NULL) return NULL;
+        ListNode *pa = headA,*pb = headB;
+        while(pa != pb){
+            pa = (pa)? pa->next : headB;
+            pb = (pb)? pb->next : headA;
+        }
+
+        return pa;
     }
 };
+// 思路 总长度/次数 = a + b =  all;
+//遍历A+B和遍历B+A一定是同时结束。
+// 45/45 cases passed (92 ms)
+// Your runtime beats 21.94 % of cpp submissions
+// Your memory usage beats 19.03 % of cpp submissions (16.9 MB)
 // @lc code=end
 
