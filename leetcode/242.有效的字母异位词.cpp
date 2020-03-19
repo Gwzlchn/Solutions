@@ -38,7 +38,15 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-
+        vector<int> str(26,0);
+        for(char ch:s){
+            str[ch-'a']++;
+        }
+        for(char ch:t){
+            str[ch-'a']--;
+            
+        }
+        return std::all_of(str.begin(), str.end(), [](int i) { return i==0; });
     }
 };
 // @lc code=end
