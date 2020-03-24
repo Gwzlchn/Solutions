@@ -37,14 +37,22 @@
 class Solution {
 public:
     int minPathSum(vector<vector<int>>& grid) {
-        const int inf = MAX_INT;
-        for(int i = grid.size()-1;i!=0;i--){
-            for(int j = grid[0].size()-1;j!=0;j--){
-                if(i == grid.size()-1 && j = grid[0].size()-1)
-                    continue;
-                int cur_i = (i==grid.size()-1)? inf:grid[i]
+        if(grid.empty()) return 0;
+        int row = grid.size();
+        int col= grid[0].size();
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                if(i==0 && j==0) continue;
+                //左增加量,第一列特殊
+                int left_add = j==0? INT_MAX:grid[i][j-1];
+                //上增加量，第一行特殊
+                int up_add = i==0? INT_MAX:grid[i-1][j];
+
+                grid[i][j] += min(left_add,up_add); 
+                
             }
         }
+        return grid[row-1][col-1];
     }
 };
 // @lc code=end
