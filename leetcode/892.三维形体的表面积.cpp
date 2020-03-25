@@ -82,7 +82,7 @@ public:
                     res -= 2*min(grid[i-1][j],grid[i][j]);
                 }
                 if(j>0 && grid[i][j-1]){
-                    res -= 2*min(grid[i][j-1],grid[i][j-1]);
+                    res -= 2*min(grid[i][j-1],grid[i][j]);
                 }
             }
         }
