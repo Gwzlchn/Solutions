@@ -75,6 +75,8 @@ public:
         int res = 0;
         for(int i=0;i<_x;i++){
             for(int j=0;j<_y;j++){
+                if(grid[i][j]==0) continue;
+                
                 //先算全部表面积，四周＋上下底面
                 res += grid[i][j]*4 + 2;
                 //减去左重叠，下重叠
