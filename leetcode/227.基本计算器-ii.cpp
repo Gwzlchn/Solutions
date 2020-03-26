@@ -55,6 +55,7 @@ public:
         int fir = 0,sec = 0;
         stack<int> st = stack<int>();
 
+
         for(string token:tokens){
             if(token == "+" || token=="-" || token=="*" || token=="/"){
                 char op = token[0];
