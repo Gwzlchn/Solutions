@@ -73,30 +73,31 @@
 class Solution {
 public:
     int myAtoi(string str) {
-        int i = 0 ;
-        int sign = 1; // 符号
-        long res = 0;
-        while(i<str.size() && str[i] == ' '){
-            i++;
-        }
+        int i=0;
+        while(i<str.size() && (str[i] ==' ' ))i++;
+        long long res = 0;
+        int minus = 1;
+        
         if(str[i] == '-'){
-            sign = -1;i++;
+            minus = -1;
+            i++;
         }else if(str[i] == '+'){
             i++;
         }
+        
 
-        while(i < str.size() && str[i] <= '9' && str[i] >= '0'){
-            res = res*10 + str[i] - '0';
-            if(res >= 2147483648){
-                return (sign == 1)? INT_MAX : INT_MIN;
-            }
+        while(i<str.size() &&isdigit(str[i]) ){
+            res  = res*10 + str[i] - '0';
             i++;
         
+            if(res > INT_MAX){
+                if(minus==-1)return INT_MIN;
+                else return INT_MAX;
+            }
         }
+        
 
-        return res * sign;
-
-
+        return minus*res;
     }
 };
 
