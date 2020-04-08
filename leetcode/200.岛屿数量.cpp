@@ -40,11 +40,52 @@
  * 
  */
 
+
 // @lc code=start
 class Solution {
 public:
-    int numIslands(vector<vector<char>>& grid) {
+    bool is_valid(int row,int col,int new_x,int new_y){
+        return new_x>=0 &&  new_x < row && new_y >=0 && new_y < col;
+    }
 
+
+
+    int numIslands(vector<vector<char>>& grid) {
+        
+        int row = grid.size();
+        if(row==0) return 0;
+
+        int col = grid[0].size();
+        
+        queue<pair<int,int>> bfs_queue;
+        int res = 0;
+
+        int dx[] = {0,1,-1,0};
+        int dy[] = {1,0,0,-1};
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                if(grid[i][j] == '0') continue;
+
+                bfs_queue.push({i,j});
+                res++;
+    
+                while(!bfs_queue.empty()){
+                    auto cur_pos = bfs_queue.front();
+                    bfs_queue.pop();
+                    
+                    for(int i=0;i<4;i++){
+                        int new_x = cur_pos.first + dx[i];
+                        int new_y = cur_pos.second + dy[i];
+                        if(is_valid(row,col,new_x,new_y) && grid[new_x][new_y] == '1'){
+                            bfs_queue.push({new_x,new_y});
+                            grid[new_x][new_y] = '0';
+                        }
+                    }
+                }
+            }
+        }
+
+        return res;
     }
 };
 // @lc code=end
