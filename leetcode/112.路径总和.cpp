@@ -41,15 +41,42 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
 class Solution {
 public:
     bool hasPathSum(TreeNode* root, int sum) {
-        //递归解法
-        if (root == NULL) return false;
-        //到达叶节点
-        if (root->val == sum && root->left ==  NULL && root->right == NULL) return true;
-        //未到达叶节点
-        return hasPathSum(root->left, sum-root->val) || hasPathSum(root->right, sum-root->val);
+        if(root == NULL) return false;
+        stack<pair<TreeNode*,int>> tree_st;
+
+        int cur_sum = sum-root->val;
+        tree_st.push({root,cur_sum});
+
+       
+        while(!tree_st.empty()){
+            auto cur_pair = tree_st.top();
+            tree_st.pop();
+            
+            auto cur_node = cur_pair.first;
+            if(cur_node->left ==NULL && cur_node->right==NULL && cur_pair.second == 0){
+                return true;
+            }
+            if(cur_node->left){
+                tree_st.push({cur_node->left,cur_pair.second - cur_node->left->val});
+            }
+            if(cur_node->right){
+                tree_st.push({cur_node->right,cur_pair.second - cur_node->right->val});
+            }
+        }
+
+        return false;
     }
 };
 
