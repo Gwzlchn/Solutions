@@ -47,6 +47,10 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+
+// 代码类似 前序遍历
+// 但弹栈的时候才输出
+// 前序 是入栈的时候输出
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
