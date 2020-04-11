@@ -68,8 +68,10 @@
 class Solution {
     int fun(int K, int T)	// 计算 K 个鸡蛋，扔 T 次，可以覆盖多少个区间
 {
-	if (T == 1 || K == 1) 
-        return T ;
+	if (T == 1 )    // K个鸡蛋扔1次，只能确定一层
+        return 1 ;
+    if(K==1)
+        return T;   //一个鸡蛋扔K次，线性探查，能确定K层
 	return fun(K - 1, T - 1) + fun(K, T - 1) + 1;
 }
 
@@ -84,6 +86,8 @@ int superEggDrop(int K, int N)
 	return T;
 }
 };
+
+
 
 
 如果鸡蛋没有碎，那么对应的是 f(T - 1, K)，也就是说在这一层的上方可以有 f(T - 1, K) 层；
