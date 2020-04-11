@@ -69,8 +69,8 @@ class Solution {
     int fun(int K, int T)	// 计算 K 个鸡蛋，扔 T 次，可以覆盖多少个区间
 {
 	if (T == 1 || K == 1) 
-        return T + 1;
-	return fun(K - 1, T - 1) + fun(K, T - 1);
+        return T ;
+	return fun(K - 1, T - 1) + fun(K, T - 1) + 1;
 }
 
 
@@ -79,11 +79,13 @@ public:
 int superEggDrop(int K, int N) 
 {
 	int T = 1;	// 扔鸡蛋的机会
-	while (fun(K, T) < N + 1) 
+	while (fun(K, T) < N ) 
         T++;
 	return T;
 }
 };
+
+
 如果鸡蛋没有碎，那么对应的是 f(T - 1, K)，也就是说在这一层的上方可以有 f(T - 1, K) 层；
 
 如果鸡蛋碎了，那么对应的是 f(T - 1, K - 1)，也就是说在这一层的下方可以有 f(T - 1， K - 1) 层。
