@@ -43,7 +43,17 @@
 class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
-        
+        if(matrix.empty()) return false;
+
+        int col = matrix[0].size();
+        int j=0;
+        int i=matrix.size() -1;
+        while(j<col && i>=0){
+            if(target < matrix[i][j]) i--;
+            else if(target > matrix[i][j]) j++;
+            else return true;
+        }
+        return false;
     }
 };
 // @lc code=end
