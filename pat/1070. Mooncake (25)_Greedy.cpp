@@ -21,7 +21,7 @@ int main(){
     sort(moon_vec.begin(),moon_vec.end(),
         [](auto& m1,auto& m2){return m1.price < m2.price;});
     
-    double total_profit;
+    double total_profit = 0;
     while(demand && !moon_vec.empty()){
         auto cur_highest = moon_vec.back();
         if(demand >= cur_highest.total_amount){

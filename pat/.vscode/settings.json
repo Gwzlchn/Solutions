@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.cpp": "cpp",
         "xstring": "cpp",
         "xutility": "cpp",
         "iostream": "cpp",
@@ -10,7 +11,10 @@
         "ostream": "cpp",
         "map": "cpp",
         "string": "cpp",
-        "cstdio": "cpp"
+        "cstdio": "cpp",
+        "array": "cpp",
+        "string_view": "cpp",
+        "regex": "cpp"
     },
     
 }
