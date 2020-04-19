@@ -66,10 +66,8 @@ public:
                 if(s1[i-1] == s2[j-1]){
                     dp[i][j] = dp[i-1][j-1];
                 }else{
-                    int temp1 = dp[i-1][j-1] + s1[i-1]+s2[j-1];
-                    int temp2 = dp[i-1][j] + s1[i-1];
-                    int temp3 = dp[i][j-1] + s2[j-1];
-                    dp[i][j] = min({temp1,temp2,temp3});
+
+                    dp[i][j] = min(dp[i-1][j] + s1[i-1],dp[i][j-1] + s2[j-1]);
                 }
             }
         }
