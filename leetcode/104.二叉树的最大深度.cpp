@@ -42,30 +42,38 @@
  */
 
  //也是类似层次遍历
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
 class Solution {
 public:
     int maxDepth(TreeNode* root) {
-        int depth = 0;
-        if(!root) return depth;
-        queue<TreeNode*> qu;
-        qu.push(root);
-        
-        int cur_wid = 1;
-        while(!qu.empty()){
-            depth++;
-            while(cur_wid--){
-                TreeNode* cur = qu.front();
-                qu.pop();
-                if(cur->left){
-                    qu.push(cur->left);
-                }
-                if(cur->right){
-                    qu.push(cur->right);
-                }
+        if(!root) return 0;
+        //BFS
+        deque<TreeNode*> bfs;
+        bfs.push_back(root);
+        int max_dep = 0;
+
+        while(!bfs.empty()){
+            max_dep++;
+
+            int cur_len = bfs.size();
+            for(int i=0;i<cur_len;i++){
+                auto& cur_node = bfs.front();
+                
+                if(cur_node->left) bfs.push_back(cur_node->left);
+                if(cur_node->right) bfs.push_back(cur_node->right);
+                bfs.pop_front();
             }
-            cur_wid = qu.size();
         }
-        return depth;
+
+        return max_dep;
     }
 };
 
