@@ -61,8 +61,8 @@ public:
         int len = nums.size();
         for(auto& num:nums){
             int n = sub_set.size();
-            for(auto& cur_str = sub_str){
-                sub_set.push_back(sub_str);
+            for(int j=0;j<n;j++){
+                sub_set.push_back(sub_set[j]);
                 sub_set.back().push_back(num);
 
             }
