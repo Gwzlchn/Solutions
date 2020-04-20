@@ -38,20 +38,37 @@
 //   √ 10/10 cases passed (8 ms)
 //   √ Your runtime beats 93.12 % of cpp submissions
 //   √ Your memory usage beats 89.22 % of cpp submissions (8.9 MB)
+### 解题思路
+思路就参考第一个评论“”
+![image.png](https://pic.leetcode-cn.com/6c3836cff1ac036fccdc899e9eadd72e2c59afe32733877c756dc24bf32b9f71-image.png)
+
+直白点说就是这样：
+以[1,2,3] 为例
+起始，插入空集
+step1 : 复制空集，将 1 插入末尾。like this  [[], [1]];
+step2 : 复制上面两个集合，复制同时将 2 插入。 [[], [1], [2], [1, 2]];
+step3 : 复制上面四个集合，复制同时将 3 插入。 [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]].
+
+
+### 代码
+
+```cpp
 class Solution {
 public:
     vector<vector<int>> subsets(vector<int>& nums) {
-        int set_size = nums.size(),ret_size = 1<<set_size;
-        if(set_size==0)return {};
-        vector<vector<int>> ret;
-        for(int i=0;i<ret_size;i++){
-            vector<int> cur = {};
-            for(int j=0;j<set_size;j++){
-                if((i>>j)&1) cur.push_back(nums[j]);
+        vector<vector<int>> sub_set{{}};
+
+        int len = nums.size();
+        for(auto& num:nums){
+            int n = sub_set.size();
+            for(auto& cur_str = sub_str){
+                sub_set.push_back(sub_str);
+                sub_set.back().push_back(num);
+
             }
-            ret.push_back(cur);
         }
-        return ret;
+
+        return sub_set;
     }
 };
-
+```
