@@ -44,6 +44,7 @@
 // @lc code=start
 class Solution {
 public:
+    //验证坐标正确
     bool is_valid(int row,int col,int new_x,int new_y){
         return new_x>=0 &&  new_x < row && new_y >=0 && new_y < col;
     }
@@ -56,7 +57,7 @@ public:
         if(row==0) return 0;
 
         int col = grid[0].size();
-        
+        //坐标的队列，BFS
         queue<pair<int,int>> bfs_queue;
         int res = 0;
 
@@ -64,11 +65,12 @@ public:
         int dy[] = {1,0,0,-1};
         for(int i=0;i<row;i++){
             for(int j=0;j<col;j++){
-                if(grid[i][j] == '0') continue;
 
+                if(grid[i][j] == '0') continue;
+                //如果是1，入队
                 bfs_queue.push({i,j});
                 res++;
-    
+                //在1周围找所有的1，找到1置零，避免重复
                 while(!bfs_queue.empty()){
                     auto cur_pos = bfs_queue.front();
                     bfs_queue.pop();
