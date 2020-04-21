@@ -35,9 +35,19 @@
 class Solution {
 public:
     int subarraySum(vector<int>& nums, int k) {
-
+        int cur = 0, res = 0;
+        unordered_map<int, int> um;
+      	// 注意这里前缀和多了一个0，防止漏掉数组的前缀和刚好等于k的情况
+        um[0] = 1;
+        for (int num : nums) {
+            cur += num;
+            res += um.find(cur - k) == um.end() ? 0 : um[cur - k];
+            um[cur]++;
+        }
+        return res;
     }
 };
+
 
 
 // class Solution {
