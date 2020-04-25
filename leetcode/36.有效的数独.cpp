@@ -74,23 +74,38 @@
  */
 class Solution {
 public:
-    bool isValidSudoku(vector<vector<char>>& board) {
-        set<char> row[9];
-        set<char> col[9];
-        set<char> box[9];
+    vector<vector<bool>> rows;
+    vector<vector<bool>> cols;
+    vector<vector<bool>> boxes;
 
-        for(int i=0;i<9;i++){
-            for(int j = 0;j<9;j++){
-                char cur = board[i][j];
-                if(cur == '.') continue;
+    int m_board_size;
+    bool isValidSudoku(vector<vector<char>>& board) {
+        m_board_size = board.size();
+        rows = vector<vector<bool>>(m_board_size,vector<bool>(m_board_size,false));
+        cols = vector<vector<bool>>(m_board_size,vector<bool>(m_board_size,false));
+        boxes = vector<vector<bool>>(m_board_size,vector<bool>(m_board_size,false));
+
+        for(int i=0;i<m_board_size;i++){
+            for(int j = 0;j<m_board_size;j++){
+                char cur_char = board[i][j];
+                if(cur_char == '.') continue;
+
+                int cur_int = cur_char - '0';
+                
+                
                 int box_idx = (i/3)*3 + j/3;
 
-                if(row[i].insert(cur).second &&
-                    col[j].insert(cur).second &&
-                    box[box_idx].insert(cur).second ){
-                    continue;
+                //cout<<cur_int<<" "<<i<<" "<<j<<" "<<box_idx<<endl;
+                
+                if( rows[i][cur_int - 1] == false &&
+                    cols[j][cur_int - 1] == false &&
+                    boxes[box_idx][cur_int - 1] == false ){
+
+                    rows[i][cur_int - 1] = true;
+                    cols[j][cur_int - 1] = true;
+                    boxes[box_idx][cur_int - 1] = true;
                 }   else{
-                    //cout<<i<<j<<box_idx;
+                    
                     return false;
                 }             
             }
