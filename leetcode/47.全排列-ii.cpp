@@ -54,7 +54,8 @@ public:
         }
 
         for(int i=0;i<m_size;i++){
-            //减枝条件
+             // 剪枝条件：i > 0 是为了保证 nums[i - 1] 有意义
+            // 写 !used[i - 1] 是因为 nums[i - 1] 在深度优先遍历的过程中刚刚被撤销选择,再次选择没有意义
             if(visited[i] || (i>0  && nums[i] == nums[i-1] && !visited[i-1]))
                 continue;
 
