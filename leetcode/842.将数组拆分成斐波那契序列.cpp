@@ -72,70 +72,74 @@
 // @lc code=start
 class Solution {
 public:
-    //vector<int> m_input;
+
     int m_size;
     bool m_done_flag;
+    // 最终的结果数组，满足斐波那契性质
     vector<int> m_res;
-
+    
     vector<int> splitIntoFibonacci(string S) {
-        
+        // 传入字符串长度
         m_size = S.size();
         m_done_flag = false;
+        // 斐波那契数组中所有元素的位数之和
+        int cur_total_size = 0;
 
-
-        dfs_fib_vec(0,S);
-        //if(m_size && S[0] == '0') return {};
-
+        dfs_fib_vec(S,cur_total_size,0);
+        
         return m_done_flag? m_res:vector<int>();
     }
 
-    void dfs_fib_vec(int idx,const string& S)
+        void dfs_fib_vec(const string& S,int& cur_total_size, int idx)
     {
-        if(vec_2_str().size() == m_size && m_res.size() > 2){
+        // 决策树成功的情况：
+        // 1、斐波那契数组中元素个数大于2，少于2没有意义，同时满足
+        // 2、斐波那契数组中元素位数之和 等于 原始字符串长度
+        // 注意这里不可以把 idx == m_size ,即深度搜索到最后一个元素之后（因为idx从0开始，idx==m_size是达到了决策树中的叶节点之后）当做成功，不过，有些回溯题这么判断是可以的。
+        // 一个反例：“0123”
+        if (cur_total_size == m_size && m_res.size() > 2) {
             m_done_flag = true;
-           
-            return ;
+            return;
         }
 
-        for(int i=idx;i<m_size ;i++){
-            int cur_num = get_cur_num(S,idx, i);
-            //cout<<endl<<cur_num<<"  ";
-            // 如果有前导0 或者溢出 直接减枝
-            if(cur_num == -1) break;
+        for (int i = idx; i < m_size; i++) {
+            int cur_num = get_cur_num(S, idx, i);
+
+            // 如果有前导0 或者溢出 直接减枝，之后的数字也不必考虑
+            if (cur_num == -1) break;
             // 如果不符合斐波那契额数列定义，下一位置继续寻找
-            if(!fab_vec_valid(cur_num)) continue;
+            if (!fab_vec_valid(cur_num)) continue;
 
+            // 1、加入选择
+            int cur_num_length = i - idx + 1;
             m_res.push_back(cur_num);
-            //cout<<cur_num<<" cur: "<<vec_2_str();
-            dfs_fib_vec(i+1,S);
+            cur_total_size += cur_num_length;
+            // 2、进入下一层决策树
+            dfs_fib_vec(S,cur_total_size,i + 1);
 
-            if(m_done_flag){
+            // 3、退出选择，注意，因为这道题可以看成找出一个解即可，所以只要完成标志为真，直接返回上一层即可
+            if (m_done_flag) {
                 return;
-            }else{
+            }
+            else {
+                // 退出最后的路径选择
                 m_res.pop_back();
+                // 从 此时元素位数和 减掉 当前元素的位数
+                cur_total_size -=  cur_num_length;
             }
 
         }
         return;
     }
 
-    string vec_2_str(){
-        string res;
-        for(auto& a:m_res){
-            res += to_string(a);
-            //res += ',';
-        }
-        //if(!res.empty())res.pop_back();
-
-        return res;
-    }
 
     // 返回 m_input 中[st,ed] 中的数值，左闭右闭区间
+    // 如果是 前导零 情况，或者 溢出情况，返回-1
     int get_cur_num(const string& S,int st_idx,int ed_idx)
     {
         long cur_res = 0;
         // 如果 [st,ed] 含有前导0 必然非法
-        if((ed_idx - st_idx)>=2 && S[st_idx] == '0') return -1;
+        if((ed_idx - st_idx)>=1 && S[st_idx] == '0') return -1;
         for(int i=st_idx;i<=ed_idx;i++){
             cur_res = cur_res*10 + S[i] - '0';
         }
@@ -143,6 +147,7 @@ public:
         return cur_res;
     }
 
+    // 对一个满足斐波那契性质的数组，插入当前元素是否合法
     bool fab_vec_valid(int num){
         // 小于2的话插入当前值必然是合法的
         if(m_res.size()==0 || m_res.size() == 1)
@@ -159,5 +164,9 @@ public:
             
     }
 };
+
+
+
+
 // @lc code=end
 
