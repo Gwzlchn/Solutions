@@ -31,8 +31,39 @@
  */
 class Solution {
 public:
+    vector<string> phone = {"abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    vector<string> res;
+    int m_digits_size;
     vector<string> letterCombinations(string digits) {
-        
+        string cur_per;
+        m_digits_size = digits.size();
+        if(m_digits_size == 0) return {};
+
+        dfs(cur_per,digits,0);
+        return res;
     }
-};
+
+    void dfs(string& cur_per,const string& digits,int digits_index){
+        // 回溯到达叶节点
+        if(cur_per.size() ==m_digits_size ){
+            res.push_back(cur_per);
+            return;
+        }
+        
+        //当前数字
+        int cur_digit = digits[digits_index]-'0';
+        // 当前层所有可能节点
+        string cur_level = phone[cur_digit-2];
+        
+        for(auto& c:cur_level){
+            //做选择
+            cur_per.push_back(c);
+            // 下一层选择
+            dfs(cur_per,digits,digits_index+1);
+            //撤销这个选择
+            cur_per.pop_back();
+
+        }
+    }
+};s
 
