@@ -49,27 +49,36 @@
 // @lc code=start
 class Solution {
 public:
+    vector<vector<int>> res;
+    int candidates_size;
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        vector<vector<int>> res;
+        candidates_size = candidates.size();
+
         vector<int> candidate_array;
         getCombination(res, candidates, candidate_array, 0, target, 0);
         return res;
     }
-    void getCombination(vector<vector<int>> &res, vector<int>& candidates, vector<int> &candidate_array, int partial_sum, int &target, int idx){
+    void getCombination(vector<vector<int>> &res,const vector<int>& candidates, vector<int> &candidate_array, \
+                        const int& partial_sum, const int &target, const int& idx){
+        //退出条件
         if(partial_sum == target){
             res.push_back(candidate_array);
         }else if(partial_sum > target){
             return;
-        }else{// partial_sum < target
-            for(int i = idx; i < candidates.size(); ++i){
+        }else{
+            // partial_sum < target
+            // 在idx 之后做选择
+            for(int i = idx; i <candidates_size; ++i){
+                // 加入路径
                 candidate_array.push_back(candidates[i]);
+                // 下一层回溯减枝
                 getCombination(res, candidates, candidate_array, partial_sum + candidates[i], target, i);
+                // 退出路径
                 candidate_array.pop_back();
             }
         }
     }
-};
-
+};s
 
 // @lc code=end
 
